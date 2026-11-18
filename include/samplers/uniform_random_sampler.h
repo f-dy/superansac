@@ -67,7 +67,7 @@ class UniformRandomSampler : public AbstractSampler
         {
             randomGenerator = std::make_unique<utils::UniformRandomGenerator<size_t>>();
             randomGenerator->resetGenerator(0,
-                static_cast<size_t>(kData_.rows()) - 1);
+                kData_.rows() > 0 ? static_cast<size_t>(kData_.rows()) - 1 : 0);
         }
 
         // Initializes any non-trivial variables and sets up sampler if
@@ -91,7 +91,7 @@ class UniformRandomSampler : public AbstractSampler
 
         void reset(const size_t &kDataSize_)
         {
-            randomGenerator->resetGenerator(0, kDataSize_ - 1);
+            randomGenerator->resetGenerator(0, kDataSize_ > 0 ? kDataSize_ - 1 : 0);
         }
 
         // Sample function
